@@ -5,8 +5,8 @@ A command-line tool for hiding secret messages in plain text using invisible Uni
 ## Features
 
 - **Two encoding methods:**
+  - TAG characters (Unicode TAG block, default)
   - Zero-width characters (invisible in most contexts)
-  - TAG characters (Unicode TAG block)
 - **Flexible injection points:** after first space, end of text, after specific words, or at character positions
 - **Auto-detection** when decoding
 - **Clipboard integration** for easy copy/paste workflows
@@ -37,11 +37,11 @@ cat file.txt | python -m steg analyze
 
 ### Different encoding methods
 ```bash
-# Zero-width (default, most invisible)
-python -m steg encode "Hello world" "secret" --method zero-width
-
-# TAG characters (like Grok prompt style)
+# TAG characters (default)
 python -m steg encode "Hello world" "secret" --method tag
+
+# Zero-width (most invisible)
+python -m steg encode "Hello world" "secret" --method zero-width
 ```
 
 ### Different injection points
@@ -63,9 +63,9 @@ python -m steg encode "Hello world" "secret" --inject char-5
 
 The tool embeds secret messages using Unicode steganography:
 
-1. **Zero-width method:** Converts the secret message to binary, then maps each bit to invisible Unicode characters (Zero Width Space `U+200B` and Zero Width Non-Joiner `U+200C`)
+1. **TAG method (default):** Maps each character directly to its corresponding TAG block character (`U+E0000` range)
 
-2. **TAG method:** Maps each character directly to its corresponding TAG block character (`U+E0000` range)
+2. **Zero-width method:** Converts the secret message to binary, then maps each bit to invisible Unicode characters (Zero Width Space `U+200B` and Zero Width Non-Joiner `U+200C`)
 
 The hidden characters are injected at the specified position and preserved when text is copied and pasted.
 
