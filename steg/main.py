@@ -20,11 +20,11 @@ def main():
         formatter_class=argparse.RawTextHelpFormatter,
         epilog="""
 Examples:
-  # Encode with default zero-width method after first space
+  # Encode with default TAG method after first space
   python -m steg encode "Hello world" "secret"
 
-  # Encode with TAG method at end of text
-  python -m steg encode "Hello world" "secret" --method tag --inject end
+  # Encode with zero-width method at end of text
+  python -m steg encode "Hello world" "secret" --method zero-width --inject end
 
   # Encode after the 2nd word
   python -m steg encode "The quick brown fox" "hidden" --inject word-2
@@ -43,8 +43,8 @@ Examples:
     encode_parser = subparsers.add_parser('encode', help='Hide a secret message in visible text.')
     encode_parser.add_argument('visible_text', help='The text to be publicly visible.')
     encode_parser.add_argument('secret_message', help='The secret message to hide.')
-    encode_parser.add_argument('--method', '-m', choices=['zero-width', 'tag'], default='zero-width',
-                               help='Encoding method: zero-width (default, most invisible) or tag')
+    encode_parser.add_argument('--method', '-m', choices=['zero-width', 'tag'], default='tag',
+                               help='Encoding method: tag (default) or zero-width (invisible)')
     encode_parser.add_argument('--inject', '-i', default='first-space',
                                help='Injection point: first-space (default), end, word-N (after Nth word), char-N (at character position N)')
 
@@ -69,7 +69,7 @@ Examples:
         print("\n" + "="*60)
         print("QUICK START GUIDE")
         print("="*60)
-        print("Most common usage (invisible zero-width chars after first space):")
+        print("Most common usage (TAG chars after first space):")
         print('  python -m steg encode "Your public text here" "secret message"')
         print("  → Automatically copies encoded text to clipboard")
         print("\nTo decode any hidden message:")
@@ -81,7 +81,7 @@ Examples:
         print('  python -m steg analyze "suspicious text"')
         print("  → Works with piped input: cat file.txt | python -m steg analyze")
         print("\nAdvanced encoding options:")
-        print("  --method: zero-width (invisible, default) or tag (direct char mapping)")
+        print("  --method: tag (default) or zero-width (invisible)")
         print("  --inject: first-space (default), end, word-N, char-N")
         print("\nUseful for watermarking, attribution, and steganography research.")
         print("="*60)

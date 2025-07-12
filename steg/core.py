@@ -10,7 +10,7 @@ MAX_SECRET_LENGTH = 10000  # Maximum characters in secret message
 MAX_VISIBLE_LENGTH = 100000  # Maximum characters in visible text
 
 
-def encode(visible_text, secret_message, method="zero-width", injection_point="first-space"):
+def encode(visible_text, secret_message, method="tag", injection_point="first-space"):
     """
     Encodes a secret message into visible text using specified method and injection point.
     """
